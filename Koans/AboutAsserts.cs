@@ -32,7 +32,7 @@ namespace DotNetCoreKoans.Koans
         [Step(4)]
         public void ABetterWayOfAssertingEquality() 
         {
-            var expectedValue = 3;
+            var expectedValue = 2;
             var actualValue = 1 + 1;
             Assert.Equal(expectedValue, actualValue);
         }
@@ -41,7 +41,7 @@ namespace DotNetCoreKoans.Koans
         [Step(5)]
         public void FillInValues() 
         {
-            Assert.Equal(FILL_ME_IN, 1 + 1);
+            Assert.Equal(2, 1 + 1);
         }
     }
 }
