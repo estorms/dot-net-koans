@@ -24,34 +24,34 @@ namespace DotNetCoreKoans.Koans
             Assert.Equal(0, empty_array.Length);
         }
 
-        // [Step(2)]
-        // public void ArrayLiterals()
-        // {
-        //     //You don't have to specify a type if the arguments can be inferred
-        //     var array = new [] { 42 };
-        //     Assert.Equal(typeof(int[]), array.GetType());
-        //     Assert.Equal(new int[] { 42 }, array);
+        [Step(2)]
+        public void ArrayLiterals()
+        {
+            //You don't have to specify a type if the arguments can be inferred
+            var array = new [] { 42 };
+            Assert.Equal(typeof(int[]), array.GetType());
+            Assert.Equal(new int[] { 42 }, array);
 
-        //     //Are arrays 0-based or 1-based?
-        //     Assert.Equal(42, array[0]);
+            //Are arrays 0-based or 1-based?
+            Assert.Equal(42, array[0]);
 
-        //     //This is important because...
-        //     //TODO:Add back once this bug is fixed: https://github.com/dotnet/corefx/issues/9998
-        //     //Assert.True(array.IsFixedSize);
+            //This is important because...
+            //TODO:Add back once this bug is fixed: https://github.com/dotnet/corefx/issues/9998
+            //Assert.True(array.IsFixedSize);
 
-        //     //...it means we can't do this: array[1] = 13;
-        //     Assert.Throws(typeof(FillMeIn), delegate() { array[1] = 13; });
+            //...it means we can't do this: array[1] = 13;
+            Assert.Throws(typeof(System.IndexOutOfRangeException), delegate() { array[1] = 13; });
 
-        //     //This is because the array is fixed at length 1. You could write a function
-        //     //which created a new array bigger than the last, copied the elements over, and
-        //     //returned the new array. Or you could do this:
-        //     List<int> dynamicArray = new List<int>();
-        //     dynamicArray.Add(42);
-        //     Assert.Equal(array, dynamicArray.ToArray());
+            //This is because the array is fixed at length 1. You could write a function
+            //which created a new array bigger than the last, copied the elements over, and
+            //returned the new array. Or you could do this:
+            List<int> dynamicArray = new List<int>();
+            dynamicArray.Add(42);
+            Assert.Equal(array, dynamicArray.ToArray());
 
-        //     dynamicArray.Add(13);
-        //     Assert.Equal((new int[] { 42, FILL_ME_IN}), dynamicArray.ToArray());
-        // }
+            dynamicArray.Add(13);
+            Assert.Equal((new int[] { 42, 13 }), dynamicArray.ToArray());
+        }
 
         [Step(3)]
         public void AccessingArrayElements()

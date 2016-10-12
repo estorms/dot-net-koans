@@ -63,6 +63,9 @@ namespace DotNetCoreKoans.Koans
             //escape the newline characters. For Windows, that would be
             // \r\n. If you are on non-Windows, that would just be \n.
             //We'll show a different way next.
+
+
+            //RETURN counts as a character
             var verbatimString = @"I
 am a
 broken line";

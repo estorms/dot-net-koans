@@ -31,9 +31,11 @@ namespace DotNetCoreKoans.Koans
         //     }
         //     catch (System.Exception ex)
         //     {
-        //         Assert.Contains("Object reference not set to an instance of an object" as string, ex.Message);
+        //         Assert.Contains("Object reference not set to an instance of an object." as string, ex.Message);
         //     }
         // }
+
+        //NO IDEA WHY THE ABOVE ISN'T WORKING. DO KNOW THAT THE ERROR MESSAGE SENT BY SYSTEM.NULLREFERENCEEXCEPTION READS VERBATIM WHAT I'VE PUT INTO THE ASSERT, MOVING ON 
 
         [Step(3)]
         public void CheckingThatAnObjectIsNull()
