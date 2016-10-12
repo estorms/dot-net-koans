@@ -82,16 +82,16 @@ namespace DotNetCoreKoans.Koans
             var stack = new Stack(array);
             //last is pushed to the top of the stack, which is after 2
             //first one to go out is one just pushed in
-            Console.WriteLine(stack.Peek());
+            // Console.WriteLine(stack.Peek());
             stack.Push("last");
             //at this point, the array below looks like: "last"[0], 2[1], 1[2]
-            Console.WriteLine(stack.ToArray()[0]);
-            Console.WriteLine(stack.ToArray()[1]);
-            Console.WriteLine(stack.ToArray()[2]);
+            // Console.WriteLine(stack.ToArray()[0]);
+            // Console.WriteLine(stack.ToArray()[1]);
+            // Console.WriteLine(stack.ToArray()[2]);
             //To Array creates a copy in reverse order, but we're only using this in the assert, not in the actual stack!!!
             Assert.Equal(new object []{"last", 2, 1}, stack.ToArray());
             var poppedValue = stack.Pop();
-            Console.WriteLine(poppedValue);
+            // Console.WriteLine(poppedValue);
             Assert.Equal("last", poppedValue);
             Assert.Equal(new object [] {2, 1}, stack.ToArray());
         }
@@ -108,17 +108,25 @@ namespace DotNetCoreKoans.Koans
 
             list.AddFirst("Say");
             //expect this to be "Say", so the list itself 
-            Console.WriteLine(list.ToArray()[0]);
+            Console.WriteLine($"{0}", list.ToArray()[0]);
             Assert.Equal(new string []{"Say", "Hello", "World"}, list.ToArray());
 
             list.RemoveLast();
+           
+            Console.WriteLine(list.ToArray()[0]);
+            
             Assert.Equal(new string[] {"Say", "Hello"}, list.ToArray());
 
             list.RemoveFirst();
-            Assert.Equal(new string[] {"Hello", "World"}, list.ToArray());
+           
+            Console.WriteLine(list.ToArray()[0]);
+            
+            Assert.Equal(new string[] {"Hello"}, list.ToArray());
+           
+            Console.WriteLine(list.ToArray()[0]);
 
             list.AddAfter(list.Find("Hello"), "World");
-            Assert.Equal(new string[] {"Say", "Hello", "World"}, list.ToArray());
+            Assert.Equal(new string[] {"Hello", "World"}, list.ToArray());
         }
     }
 }
