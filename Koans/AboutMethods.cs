@@ -8,7 +8,8 @@ namespace DotNetCoreKoans.Koans
     public static class ExtensionMethods
     {
 
-        //sharing a name space, passing that namespace in with "this"? Perhaps this is a way to make methods available (sharing a namespace w/o inheritance)
+        //A CLASS DEFINES A TYPE
+        //this Koan is referring to the class that's being extended, koan is referring to the instance of the koan class upon which the extension method is being called. Using an extension method makes a lot more sense when you're doing so on a class that can't otherwise be access (e.g., string) ... otherwise, why not just put the method on Koan class???
         public static string HelloWorld(this Koan koan)
         {
             return "Hello!";
@@ -28,6 +29,7 @@ namespace DotNetCoreKoans.Koans
             return names;
         }
 
+//EXTENSION METHODS exist on a type, which are also classes. So if you can't get to the class itself, e.g., string, you put an exntension method on that class/type (without creating an instance). below, the this refers to the method in which the extension method is being called. there is a 'this' on that as well.
         public static string SayHi(this String str)
         {
             return "Hi, " + str;
