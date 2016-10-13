@@ -138,7 +138,6 @@ namespace DotNetCoreKoans.Koans
                 result = result + i;
                 i += 1;
             }
-            //NOT SURE WHY THIS ISN'T SIX
             Assert.Equal(7, result);
         }
 
@@ -164,7 +163,7 @@ namespace DotNetCoreKoans.Koans
             while(i < 10)
             {
                 i += 1;
-                if ((i % 2) == 0) { continue; }
+                if ((i % 2) == 0) { continue; } //continue basically means RESTART THE LOOP 
                 result.Add(i);
             }
             Assert.Equal(new List<int> {1, 3, 5, 7, 9}, result);
