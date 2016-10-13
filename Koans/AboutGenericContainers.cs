@@ -16,17 +16,18 @@ namespace DotNetCoreKoans.Koans
 			//The size of an array cannot be changed after you allocate it. To get around that
 			//you need a class from the System.Collections namespace such as ArrayList
 			ArrayList list = new ArrayList();
-			Assert.Equal(FILL_ME_IN, list.Count);
+			Assert.Equal(0, list.Count);
 
 			list.Add(42);
-			Assert.Equal(FILL_ME_IN, list.Count);
+			Assert.Equal(1, list.Count);
 		}
 		[Step(2)]
 		public void ArrayListHoldsObjects()
 		{
 			ArrayList list = new ArrayList();
 			System.Reflection.MethodInfo method = list.GetType().GetMethod("Add");
-			Assert.Equal(typeof(FillMeIn), method.GetParameters()[0].ParameterType);
+			//this assertion looks at the method defined above as Add (on list) and looks for its parameters, which are going to be objects, because objects are being added to the array list
+			Assert.Equal(typeof(object), method.GetParameters()[0].ParameterType);
 		}
 		[Step(3)]
 		public void MustCastWhenRetrieving()
@@ -36,19 +37,19 @@ namespace DotNetCoreKoans.Koans
 			ArrayList list = new ArrayList();
 			list.Add(42);
 			int x = 0;
-			//x = (int)list[0];
+			x = (int)list[0];
 			Assert.Equal(x, 42);
 		}
 		[Step(4)]
 		public void ArrayListIsNotStronglyTyped()
 		{
 			//Having to cast everywhere is tedious. But there is also another issue lurking
-			//ArrayList can hold more than one type. 
+			//ArrayList can hold more than one type. (IMPLICIT IN THE FACT THAT THEY HOLD OBJECTS, YES?)
 			ArrayList list = new ArrayList();
 			list.Add(42);
 			list.Add("fourty two");
-			Assert.Equal(FILL_ME_IN, list[0]);
-			Assert.Equal(FILL_ME_IN, list[1]);
+			Assert.Equal(42, list[0]);
+			Assert.Equal("fourty two", list[1]);
 
 			//While there are a few cases where it could be nice, instead what it means is that 
 			//anytime your code works with an array list you have to check that the element is 
@@ -79,10 +80,10 @@ namespace DotNetCoreKoans.Koans
 			//The "T" in the definition of List<T> is the type argument. You cannot declare an instace of List<T> without also
 			//supplying a type in place of T.
 			var list = new List<int>();
-			Assert.Equal(FILL_ME_IN, list.Count);
+			Assert.Equal(0, list.Count);
 
 			list.Add(42);
-			Assert.Equal(FILL_ME_IN, list.Count);
+			Assert.Equal(1, list.Count);
 
 			//Now just like int[], you can have a type safe dynamic sized container
 			//list.Add("fourty two"); //<--Unlike ArrayList this is illegal.
@@ -99,14 +100,14 @@ namespace DotNetCoreKoans.Koans
 			//Just as with Array, list will work with any type
 			List<Widget> list = new List<Widget>();
 			list.Add(new Widget());
-			Assert.Equal(FILL_ME_IN, list.Count);
+			Assert.Equal(1, list.Count);
 		}
 		[Step(8)]
 		public void InitializingWithValues()
 		{
 			//Like array you can create a list with an initial set of values easily
 			var list = new List<int> { 1, 2, 3 };
-			Assert.Equal(FILL_ME_IN, list.Count);
+			Assert.Equal(3, list.Count);
 		}
 		[Step(9)]
 		public void AddMultipleItems()
@@ -114,55 +115,57 @@ namespace DotNetCoreKoans.Koans
 			//You can add multiple items to a list at once
 			List<int> list = new List<int>();
 			list.AddRange(new[] { 1, 2, 3 });
-			Assert.Equal(FILL_ME_IN, list.Count);
+			Assert.Equal(3, list.Count);
 		}
 		[Step(10)]
 		public void RandomAccess()
 		{
 			//Just as with array, you can use the subscript notation to access any element in a list.
 			List<int> list = new List<int> { 5, 6, 7 };
-			Assert.Equal(FILL_ME_IN, list[2]);
+			Assert.Equal(7, list[2]);
 		}
 		[Step(11)]
 		public void BeyondTheLimits()
 		{
 			List<int> list = new List<int> { 1, 2, 3 };
 			//You cannot attempt to get data that doesn't exist
-			Assert.Throws(typeof(FillMeIn), delegate() { int x = list[3]; });
+			Assert.Throws(typeof(System.ArgumentOutOfRangeException), delegate() { int x = list[3]; });
 		}
 		[Step(12)]
 		public void ConvertingToFixedSize()
 		{
 			List<int> list = new List<int> { 1, 2, 3 };
-			Assert.Equal(FILL_ME_IN, list.ToArray());
+			Assert.Equal(new int[] {1, 2, 3}, list.ToArray());
 		}
 		[Step(13)]
 		public void InsertingInTheMiddle()
 		{
 			List<int> list = new List<int> { 1, 2, 3 };
 			list.Insert(1, 6);
-			Assert.Equal(FILL_ME_IN, list.ToArray());
+			//inserts INTO position [1], not after
+			Assert.Equal(new int [] {1, 6, 2, 3}, list.ToArray());
 		}
 		[Step(14)]
 		public void RemovingItems()
 		{
 			List<int> list = new List<int> { 2, 1, 2, 3 };
 			list.Remove(2);
-			Assert.Equal(FILL_ME_IN, list.ToArray());
+			//removes the first occurence of that object (not index value!!!!)
+			Assert.Equal(new int[] {1, 2, 3}, list.ToArray());
 		}
 		[Step(15)]
 		public void StackPushPop()
 		{
 			var stack = new Stack<int>();
-			Assert.Equal(FILL_ME_IN, stack.Count);
+			Assert.Equal(0, stack.Count);
 
 			stack.Push(42);
-			Assert.Equal(FILL_ME_IN, stack.Count);
+			Assert.Equal(1, stack.Count);
 
 			int x = stack.Pop();
-			Assert.Equal(FILL_ME_IN, x);
+			Assert.Equal(42, x);
 
-			Assert.Equal(FILL_ME_IN, stack.Count);
+			Assert.Equal(0, stack.Count);
 		}
 		[Step(16)]
 		public void StackOrder()
@@ -172,16 +175,16 @@ namespace DotNetCoreKoans.Koans
 			stack.Push(2);
 			stack.Push(3);
 
-			Assert.Equal(FILL_ME_IN, stack.ToArray());
+			Assert.Equal(new int [] {3, 2, 1}, stack.ToArray());
 		}
 		[Step(17)]
 		public void PeekingIntoAQueue()
 		{
 			Queue<string> queue = new Queue<string>();
 			queue.Enqueue("one");
-			Assert.Equal(FILL_ME_IN, queue.Peek());
+			Assert.Equal("one", queue.Peek());
 			queue.Enqueue("two");
-			Assert.Equal(FILL_ME_IN, queue.Peek());
+			Assert.Equal("one", queue.Peek());
 		}
 		[Step(18)]
 		public void RemovingItemsFromTheQueue()
@@ -189,17 +192,17 @@ namespace DotNetCoreKoans.Koans
 			Queue<string> queue = new Queue<string>();
 			queue.Enqueue("one");
 			queue.Enqueue("two");
-			Assert.Equal(FILL_ME_IN, queue.Dequeue());
-			Assert.Equal(FILL_ME_IN, queue.Count);
+			Assert.Equal("one", queue.Dequeue());
+			Assert.Equal(1, queue.Count);
 		}
 		[Step(19)]
 		public void AddingToADictionary()
 		{
 			//Dictionary<TKey, TValue> is .Net's key value store. The key and the value do not need to be the same types.
 			Dictionary<int, string> dictionary = new Dictionary<int, string>();
-			Assert.Equal(FILL_ME_IN, dictionary.Count);
+			Assert.Equal(0, dictionary.Count);
 			dictionary[1] = "one";
-			Assert.Equal(FILL_ME_IN, dictionary.Count);
+			Assert.Equal(1, dictionary.Count);
 		}
 		[Step(20)]
 		public void AccessingData()
@@ -208,15 +211,15 @@ namespace DotNetCoreKoans.Koans
 			dictionary["one"] = "uno";
 			dictionary["two"] = "dos";
 			//The most common way to locate data is with the subscript notation.
-			Assert.Equal(FILL_ME_IN, dictionary["one"]);
-			Assert.Equal(FILL_ME_IN, dictionary["two"]);
+			Assert.Equal("uno", dictionary["one"]);
+			Assert.Equal("dos", dictionary["two"]);
 		}
 		[Step(21)]
 		public void AccessingDataNotAdded()
 		{
 			Dictionary<string, string> dictionary = new Dictionary<string, string>();
 			dictionary["one"] = "uno";
-			Assert.Throws(typeof(FillMeIn), delegate() { string s = dictionary["two"]; });
+			Assert.Throws(typeof(System.Collections.Generic.KeyNotFoundException), delegate() { string s = dictionary["two"]; });
 		}
 		[Step(22)]
 		public void CatchingMissingData()
@@ -233,7 +236,7 @@ namespace DotNetCoreKoans.Koans
 			{
 				result = "dos";
 			}
-			Assert.Equal(FILL_ME_IN, result);
+			Assert.Equal("dos", result);
 		}
 		[Step(23)]
 		public void PreCheckForMissingData()
@@ -249,7 +252,7 @@ namespace DotNetCoreKoans.Koans
 			{
 				result = "dos";
 			}
-			Assert.Equal(FILL_ME_IN, result);
+			Assert.Equal("dos", result);
 		}
 		[Step(24)]
 		public void TryGetValueForMissingData()
@@ -261,15 +264,15 @@ namespace DotNetCoreKoans.Koans
 			{
 				result = "dos";
 			}
-			Assert.Equal(FILL_ME_IN, result);
+			Assert.Equal("dos", result);
 		}
 		[Step(25)]
 		public void InitializingADictionary()
 		{
 			//Although it is not common, you can initialize a dictionary...
 			var dictionary = new Dictionary<string, string> { { "one", "uno" }, { "two", "dos" } };
-			Assert.Equal(FILL_ME_IN, dictionary["one"]);
-			Assert.Equal(FILL_ME_IN, dictionary["two"]);
+			Assert.Equal("uno", dictionary["one"]);
+			Assert.Equal("dos", dictionary["two"]);
 		}
 		[Step(26)]
 		public void ModifyingData()
@@ -278,23 +281,23 @@ namespace DotNetCoreKoans.Koans
 			dictionary["one"] = "uno";
 			dictionary["two"] = "dos";
 			dictionary["one"] = "ein";
-			Assert.Equal(FILL_ME_IN, dictionary["one"]);
+			Assert.Equal("ein", dictionary["one"]);
 		}
 		[Step(27)]
 		public void KeyExists()
 		{
 			Dictionary<string, string> dictionary = new Dictionary<string, string>();
 			dictionary["one"] = "uno";
-			Assert.Equal(FILL_ME_IN, dictionary.ContainsKey("one"));
-			Assert.Equal(FILL_ME_IN, dictionary.ContainsKey("two"));
+			Assert.Equal(true, dictionary.ContainsKey("one"));
+			Assert.Equal(false, dictionary.ContainsKey("two"));
 		}
 		[Step(28)]
 		public void ValueExists()
 		{
 			Dictionary<string, string> dictionary = new Dictionary<string, string>();
 			dictionary["one"] = "uno";
-			Assert.Equal(FILL_ME_IN, dictionary.ContainsValue("uno"));
-			Assert.Equal(FILL_ME_IN, dictionary.ContainsValue("dos"));
+			Assert.Equal(true, dictionary.ContainsValue("uno"));
+			Assert.Equal(false, dictionary.ContainsValue("dos"));
 		}
 		[Step(29)]
 		public void f()
@@ -313,9 +316,9 @@ namespace DotNetCoreKoans.Koans
 				one[item.Key] = item.Value;
 			}
 
-			Assert.Equal(FILL_ME_IN, one["jim"]);
-			Assert.Equal(FILL_ME_IN, one["jenny"]);
-			Assert.Equal(FILL_ME_IN, one["amy"]);
+			Assert.Equal(54, one["jim"]);
+			Assert.Equal(26, one["jenny"]);
+			Assert.Equal(20, one["amy"]);
 		}
 	}
 }
