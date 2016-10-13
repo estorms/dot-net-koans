@@ -36,7 +36,6 @@ namespace DotNetCoreKoans.Koans
 
         }
 
-        //looks like when you leave out the curly brackets on an if statement, it defaults to the else?
 
         [Step(3)]
         public void IfThenStatementsWithBrackets()
@@ -241,3 +240,4 @@ namespace DotNetCoreKoans.Koans
         }
     }
 }
+
